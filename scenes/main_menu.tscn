@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb5wp363jooad"]
+
+[ext_resource type="Script" path="res://scripts/MainMenuManager.cs" id="1_k20th"]
+[ext_resource type="Script" path="res://scripts/MenuTab.cs" id="2_vntxq"]
+[ext_resource type="Script" path="res://scripts/LoadSceneButton.cs" id="3_s01fi"]
+[ext_resource type="Script" path="res://scripts/MenuSwapperButton.cs" id="3_shr47"]
+[ext_resource type="PackedScene" uid="uid://gw7tvuebqin" path="res://scenes/game.tscn" id="4_mkmra"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k20th")
+
+[node name="MenuTab" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vntxq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuTab"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuTab/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65402, 0.801224, 0.9858, 1)
+theme_override_font_sizes/font_size = 60
+text = "Main Menu"
+
+[node name="StartGameBtn" type="Button" parent="MenuTab/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.580392, 0.933333, 1)
+theme_override_font_sizes/font_size = 45
+text = "Start Game"
+script = ExtResource("3_s01fi")
+sceneToSwitchTo = ExtResource("4_mkmra")
+
+[node name="OptionBtn" type="Button" parent="MenuTab/VBoxContainer" node_paths=PackedStringArray("SwitchToMenu")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.580392, 0.933333, 1)
+theme_override_font_sizes/font_size = 45
+text = "Options"
+script = ExtResource("3_shr47")
+SwitchToMenu = NodePath("../../../MenuTab2")
+
+[node name="QuitGameBtn" type="Button" parent="MenuTab/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.580392, 0.933333, 1)
+theme_override_font_sizes/font_size = 45
+text = "Quit Game"
+
+[node name="MenuTab2" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vntxq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuTab2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuTab2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "Second Menu"
+
+[node name="ReturnBtn" type="Button" parent="MenuTab2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "Return"
+
+[connection signal="pressed" from="MenuTab/VBoxContainer/QuitGameBtn" to="." method="OnQuitGameBtnPressed"]
+[connection signal="pressed" from="MenuTab2/VBoxContainer/ReturnBtn" to="MenuTab2" method="OnMenuReturnButtonPressed"]

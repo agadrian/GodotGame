@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://gukcmendah3f"]
+
+[ext_resource type="PackedScene" uid="uid://cb5wp363jooad" path="res://scenes/main_menu.tscn" id="1_56j50"]
+
+[node name="main" type="Node2D"]
+
+[node name="MainMenu" parent="." instance=ExtResource("1_56j50")]
+offset_left = 552.0
+offset_top = 319.0
+offset_right = 552.0
+offset_bottom = 319.0
