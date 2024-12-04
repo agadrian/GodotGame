@@ -3,9 +3,7 @@ using System;
 using System.Threading.Tasks;
 
 
-// TODO: Add death screen
-// TODO: Add platform movement
-// TODO: Add dead items
+
 // TODO: Concicion de vicotria cuando recolecte todas las monedas
 
 public partial class Player : CharacterBody2D
@@ -27,13 +25,9 @@ public partial class Player : CharacterBody2D
 	private bool isDead;
 	
 	private AnimationTree _animationTree;
-	private AnimationNodeStateMachinePlayback _stateMachine;
 	private AnimationPlayer _animationPlayer;
 	
-
 	
-	
-
 	
 	public override void _Ready()
 	{
@@ -42,7 +36,7 @@ public partial class Player : CharacterBody2D
 		
 		// Obtener referencia del enemigo
 		_enemy = GetParent().GetNode<Enemy>("Enemies/Enemy");
-		//_enemy = GetNode<Node2D>("Enemies").GetNode<Enemy>("Enemy");
+		
 		
 		
 		// Referenciar al AnimationTree
@@ -56,19 +50,6 @@ public partial class Player : CharacterBody2D
 			
 			
 			_animationTree.Active = true;
-			
-			// Conversión explícita del nodo de playback
-			_stateMachine = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
-
-			if (_stateMachine != null)
-			{
-				GD.Print("StateMachinePlayback obtenido correctamente.");
-			}
-			else
-			{
-				GD.PrintErr("Error al obtener StateMachinePlayback. Verifica la configuración del AnimationTree.");
-		 
-			}
 			
 		}
 		else
@@ -117,8 +98,6 @@ public partial class Player : CharacterBody2D
 			velocity.X = 0;
 		}
 		
-		
-		
 		Velocity = velocity;
 		MoveAndSlide();
 	}
@@ -161,10 +140,6 @@ public partial class Player : CharacterBody2D
 			{
 				//Godot.GD.Print("ataaque");
 				Attack();
-			}
-			else
-			{
-				//GD.Print("Cooldown");
 			}
 		}
 		
@@ -301,7 +276,9 @@ public partial class Player : CharacterBody2D
 	private void OnDeathComplete()
 	{
 		GD.Print("Player has died!");
-		QueueFree(); 
+		QueueFree();
+		GetTree().ChangeSceneToFile("res://scenes/GameOver.tscn");
 	}
+	
 	
 }

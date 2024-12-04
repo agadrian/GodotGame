@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://drfppj7vhryyc"]
+
+[ext_resource type="Script" path="res://scripts/GameOver.gd" id="1_fnw2c"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fnw2c")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 444.0
+offset_top = 130.0
+offset_right = 729.0
+offset_bottom = 199.0
+theme_override_font_sizes/font_size = 50
+text = "Game Over!"
+
+[node name="PlayAgain" type="Button" parent="."]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 246.0
+offset_right = 688.0
+offset_bottom = 309.0
+theme_override_font_sizes/font_size = 40
+text = "Play again"
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 316.0
+offset_right = 690.0
+offset_bottom = 379.0
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
