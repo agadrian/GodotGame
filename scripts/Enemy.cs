@@ -107,7 +107,7 @@ public partial class Enemy : CharacterBody2D
 		
 		GD.Print("despues de coldown");
 		player.canAttack = false;
-		player.TakeDamge(20);
+		player.TakeDamage(20);
 	}
 	
 	private void OnAttackCooldownComplete()

@@ -3,17 +3,22 @@
 [ext_resource type="Script" path="res://scripts/spikes.gd" id="1_yjsv3"]
 [ext_resource type="Texture2D" uid="uid://8cyxixnjab72" path="res://assets/Dungeon Tile Set.png" id="2_xd8xq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hsbm"]
-size = Vector2(64, 10)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y40l0"]
+size = Vector2(44, 10)
 
-[node name="Spikes" type="Area2D"]
+[node name="Area2D" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_yjsv3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-10.25, 0)
+scale = Vector2(0.674603, 1)
 texture = ExtResource("2_xd8xq")
 region_enabled = true
 region_rect = Rect2(48, 231, 63, 9)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_7hsbm")
+position = Vector2(-10, 0)
+shape = SubResource("RectangleShape2D_y40l0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

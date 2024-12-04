@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 // TODO: Add death screen
 // TODO: Add platform movement
 // TODO: Add dead items
+// TODO: Concicion de vicotria cuando recolecte todas las monedas
 
 public partial class Player : CharacterBody2D
 {
@@ -29,9 +30,6 @@ public partial class Player : CharacterBody2D
 	private AnimationNodeStateMachinePlayback _stateMachine;
 	private AnimationPlayer _animationPlayer;
 	
-	// Referencia a la escena de la bala
-	// Pre-cargar la escena manualmente
-	private static PackedScene _bulletScene = (PackedScene)ResourceLoader.Load("res://scenes/bullet.tscn");
 
 	
 	
@@ -244,7 +242,7 @@ public partial class Player : CharacterBody2D
 		canAttack = true;  
 	}
 
-	public void TakeDamge(int damage)
+	public void TakeDamage(int damage)
 	{
 		if (!isTakingDamage)
 		{
@@ -279,9 +277,13 @@ public partial class Player : CharacterBody2D
 		_animationTree.Set("parameters/conditions/hurt", false);
 	}
 	
-	public void Die()
+	private void Die()
 	{
-		if (isDead) return;
+		if (isDead)
+		{
+			GD.Print("Is already dead");
+			return;
+		}
 		
 		isDead = true;
 		
