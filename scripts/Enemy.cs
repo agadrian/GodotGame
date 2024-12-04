@@ -27,7 +27,7 @@ public partial class Enemy : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		player = GetParent().GetNode<Player>("Player");
+		player = GetParent().GetParent().GetNode<Player>("Player");
 		
 		// Obtener referencia del AnimatedSprite2D del enemy
 		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");

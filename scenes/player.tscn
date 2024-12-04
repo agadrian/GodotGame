@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://chg12vace7rqu"]
+[gd_scene load_steps=85 format=3 uid="uid://chg12vace7rqu"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_fwk1u"]
 [ext_resource type="Texture2D" uid="uid://b2kmsgdmo0rol" path="res://assets/ninjarealg/idle/NEWNJIDLE2.png" id="1_v7jho"]
@@ -41,9 +41,6 @@
 [ext_resource type="Texture2D" uid="uid://dxn5713xui8kp" path="res://assets/ninjarealg/jump/8.png" id="18_wlv37"]
 [ext_resource type="Texture2D" uid="uid://cot0bngwy1hsq" path="res://assets/ninjarealg/dead/9.png" id="19_41hkx"]
 [ext_resource type="Texture2D" uid="uid://dijvlhvvs6mkl" path="res://assets/ninjarealg/jump/9.png" id="19_77pyf"]
-[ext_resource type="Texture2D" uid="uid://65wupor5h0uk" path="res://assets/ninjarealg/shoot/1.png" id="29_rwel8"]
-[ext_resource type="Texture2D" uid="uid://g8cskal0ga6b" path="res://assets/ninjarealg/shoot/2.png" id="30_72lhu"]
-[ext_resource type="Texture2D" uid="uid://br504tf2v3plm" path="res://assets/ninjarealg/shoot/3.png" id="31_4ay74"]
 [ext_resource type="Texture2D" uid="uid://c0ux68iq0evdg" path="res://assets/ninjarealg/NEWrun/1.png" id="33_ivrma"]
 [ext_resource type="Texture2D" uid="uid://cpbobjbh6r0bb" path="res://assets/ninjarealg/NEWrun/2.png" id="34_3duro"]
 [ext_resource type="Texture2D" uid="uid://gt3evnyara65" path="res://assets/ninjarealg/NEWrun/3.png" id="35_snomv"]
@@ -232,24 +229,10 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("29_rwel8")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_72lhu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_4ay74")
-}],
-"loop": true,
-"name": &"shoot",
-"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_45qpd"]
-size = Vector2(16.5, 31)
+size = Vector2(16.5, 35.1389)
 
 [sub_resource type="Animation" id="Animation_gjtdg"]
 length = 0.001
@@ -696,14 +679,14 @@ script = ExtResource("1_fwk1u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -16)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.09, 0.09)
 sprite_frames = SubResource("SpriteFrames_ke12d")
-animation = &"shoot"
-frame = 1
-frame_progress = 0.442292
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.75, -15)
+z_index = 6
+position = Vector2(-0.75, -17.1875)
+scale = Vector2(0.9, 0.9)
 shape = SubResource("RectangleShape2D_45qpd")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

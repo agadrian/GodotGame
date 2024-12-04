@@ -2,10 +2,15 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
+
+// TODO: Add death screen
+// TODO: Add platform movement
+// TODO: Add dead items
+
 public partial class Player : CharacterBody2D
 {
 	public const float Speed = 120.0f;
-	public const float JumpVelocity = -300.0f;
+	public const float JumpVelocity = -320.0f;
 	public const int AttackDamage = 10;
 	public int Health = 120;
 	
@@ -38,7 +43,8 @@ public partial class Player : CharacterBody2D
 		_animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		
 		// Obtener referencia del enemigo
-		_enemy = GetParent().GetNode<Enemy>("Enemy");
+		_enemy = GetParent().GetNode<Enemy>("Enemies/Enemy");
+		//_enemy = GetNode<Node2D>("Enemies").GetNode<Enemy>("Enemy");
 		
 		
 		// Referenciar al AnimationTree
@@ -127,13 +133,13 @@ public partial class Player : CharacterBody2D
 		_animationTree.Set("parameters/conditions/run", velocity.X != 0 && IsOnFloor());
 		
 		
-		// Salto
+		// Velocidad Y
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
-			//_animationTree.Set("parameters/conditions/jump", true);
 		}
 		
+		// Salto on
 		if (!IsOnFloor())
 		{
 			//GD.Print("aire");
@@ -141,6 +147,7 @@ public partial class Player : CharacterBody2D
 			
 		}
 		
+		// Salto off
 		if (IsOnFloor())
 		{
 			//GD.Print("suelo");
@@ -154,27 +161,20 @@ public partial class Player : CharacterBody2D
 		{
 			if (canAttack)
 			{
-				Godot.GD.Print("ataaque");
+				//Godot.GD.Print("ataaque");
 				Attack();
 			}
 			else
 			{
-				GD.Print("Cooldown");
+				//GD.Print("Cooldown");
 			}
-			
 		}
 		
-		
-
 		return velocity;
-
 	}
 	
 
-
 	
-	
-
 	public void Attack()
 	{
 		if (!canAttack) return;
@@ -201,22 +201,35 @@ public partial class Player : CharacterBody2D
 		cooldownTimer.Connect("timeout", new Callable(this, nameof(OnCooldownEnd)));
 		AddChild(cooldownTimer);
 		cooldownTimer.Start();
-		
-		
-		
-		if (_enemy !=null)
-		{
-			float distanceToEnemy = GlobalPosition.DistanceTo(_enemy.GlobalPosition);
 
-			if (distanceToEnemy <= AttackRange)
+		Enemy closestEnemy = null;
+		float closestDistance = AttackRange;
+
+		foreach (Node node in GetTree().GetNodesInGroup("enemies"))
+		{
+			if (node is Enemy enemy)
 			{
-				_enemy.TakeDamage(AttackDamage);
-				GD.Print("atack");
+
+				float distanceToEnemy = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+				if (distanceToEnemy <= closestDistance)
+				{
+					closestDistance = distanceToEnemy;
+					closestEnemy = enemy;
+					//_enemy.TakeDamage(AttackDamage);
+					//GD.Print("atack");
+				}
 			}
+
 		}
 		
-		
-		
+		// Atacar si encuentra enemigo cercano
+		if (closestEnemy != null)
+		{
+			closestEnemy.TakeDamage(AttackDamage);
+			GD.Print("Attacking the closest enemy!");
+		}
+
 	}
 	
 	private void OnAttackAnimationEnd()
@@ -266,13 +279,11 @@ public partial class Player : CharacterBody2D
 		_animationTree.Set("parameters/conditions/hurt", false);
 	}
 	
-	private void Die()
+	public void Die()
 	{
-		
 		if (isDead) return;
 		
 		isDead = true;
-		
 		
 		_animationTree.Set("parameters/conditions/dead", true);
 		var deadTimer = new Timer();
@@ -283,13 +294,12 @@ public partial class Player : CharacterBody2D
 		deadTimer.Start();
 		
 		
-		// Aquí puedes añadir la animación de muerte y/o lógica de reinicio
 	}
 	
 	private void OnDeathComplete()
 	{
 		GD.Print("Player has died!");
-		QueueFree(); // Elimina al jugador de la escena
+		QueueFree(); 
 	}
 	
 }
