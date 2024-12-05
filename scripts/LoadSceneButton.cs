@@ -4,7 +4,7 @@ using System;
 public partial class LoadSceneButton : Button
 {
 	
-	[Export] PackedScene sceneToSwitchTo;
+	[Export] String sceneToSwitchTo;
 
 	public override void _Ready()
 	{

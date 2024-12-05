@@ -10,8 +10,8 @@ public partial class Player : CharacterBody2D
 {
 	public const float Speed = 120.0f;
 	public const float JumpVelocity = -320.0f;
-	public const int AttackDamage = 10;
-	public int Health = 120;
+	public const int AttackDamage = 15;
+	public int Health = 150;
 	
 	// Referncia al sprite del Pj
 	private AnimatedSprite2D _animatedSprite;
@@ -277,7 +277,9 @@ public partial class Player : CharacterBody2D
 	{
 		GD.Print("Player has died!");
 		QueueFree();
-		GetTree().ChangeSceneToFile("res://scenes/GameOver.tscn");
+		GetTree().CallDeferred("change_scene_to_file", "res://scenes/GameOver.tscn");
+		GetTree().CallDeferred("current_scece", "res://scenes/GameOver.tscn");
+		//GetTree().Root.ChangeSceneToFile("res://scenes/GameOver.tscn");
 	}
 	
 	

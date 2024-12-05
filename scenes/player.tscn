@@ -682,6 +682,7 @@ position = Vector2(1, -16)
 scale = Vector2(0.09, 0.09)
 sprite_frames = SubResource("SpriteFrames_ke12d")
 animation = &"idle"
+frame_progress = 0.870204
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 6

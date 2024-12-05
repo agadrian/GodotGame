@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://drfppj7vhryyc"]
+[gd_scene load_steps=3 format=3 uid="uid://drfppj7vhryyc"]
 
 [ext_resource type="Script" path="res://scripts/GameOver.gd" id="1_fnw2c"]
+[ext_resource type="Script" path="res://scripts/MenuTab.cs" id="2_bps1q"]
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -9,34 +10,57 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 script = ExtResource("1_fnw2c")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 444.0
-offset_top = 130.0
-offset_right = 729.0
-offset_bottom = 199.0
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -376.0
+offset_top = -197.0
+offset_right = 440.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MenuTab" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -116.5
+offset_right = 163.5
+offset_bottom = 116.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_bps1q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuTab"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MenuTab/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Game Over!"
 
-[node name="PlayAgain" type="Button" parent="."]
-layout_mode = 0
-offset_left = 484.0
-offset_top = 246.0
-offset_right = 688.0
-offset_bottom = 309.0
+[node name="PlayAgain" type="Button" parent="MenuTab/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Play again"
 
-[node name="Quit" type="Button" parent="."]
-layout_mode = 0
-offset_left = 486.0
-offset_top = 316.0
-offset_right = 690.0
-offset_bottom = 379.0
+[node name="Quit" type="Button" parent="MenuTab/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
 
-[connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="MenuTab/VBoxContainer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="MenuTab/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

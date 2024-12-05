@@ -1,31 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6ahl6eegpexc"]
+[gd_scene load_steps=5 format=3 uid="uid://c6ahl6eegpexc"]
 
 [ext_resource type="Script" path="res://scripts/MainMenuManager.cs" id="1_oomwa"]
 [ext_resource type="Script" path="res://scripts/MenuTab.cs" id="2_ffrmj"]
 [ext_resource type="Script" path="res://scripts/LoadSceneButton.cs" id="3_7ec33"]
-[ext_resource type="PackedScene" uid="uid://gw7tvuebqin" path="res://scenes/game.tscn" id="4_kjun3"]
 [ext_resource type="Texture2D" uid="uid://b65orpyhdsnx4" path="res://assets/ninjarealg/loadingscreen/10.png" id="11_4nyuf"]
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oomwa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(576.5, 326)
 scale = Vector2(0.601562, 0.598148)
 texture = ExtResource("11_4nyuf")
+region_filter_clip_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 406.0
-offset_top = 200.0
-offset_right = 746.0
-offset_bottom = 447.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -123.5
+offset_right = 170.0
+offset_bottom = 123.5
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0.6, 1, 1)
 
 [node name="MenuTab" type="PanelContainer" parent="."]
@@ -58,7 +66,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 45
 text = "Start Game"
 script = ExtResource("3_7ec33")
-sceneToSwitchTo = ExtResource("4_kjun3")
+sceneToSwitchTo = "res://scenes/game.tscn"
 
 [node name="QuitGameBtn" type="Button" parent="MenuTab/VBoxContainer"]
 layout_mode = 2

@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 
 
 func _on_play_again_pressed() -> void:
-	get_tree().get_root().get_child(0).queue_free()
+	#get_tree().get_root().get_child(0).queue_free()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 

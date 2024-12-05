@@ -4,10 +4,10 @@ using System;
 public partial class Enemy : CharacterBody2D
 {
 	
-	public const float Speed = 50f;
+	public const float Speed = 80f;
 	public const float DetectionRange = 200f;
 	private const float AttackRange = 20f;
-	public int Health = 40 ;
+	public int Health = 90;
 	
 	// Refernciar al jugador principal
 	private Player player;
@@ -35,24 +35,27 @@ public partial class Enemy : CharacterBody2D
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
+		Vector2 velocity = Velocity;
+		
 		if (player == null || player.IsQueuedForDeletion()) return;
 
 		if (player != null && IsPlayerInRange() && !isTakingDamage)
 		{
 			if (GetDistanceToPlayer() < AttackRange && !isAttackOnCooldown && !isAttacking && !isTakingDamage)
 			{
-				Velocity = Vector2.Zero;
+				velocity = Vector2.Zero;
 				Attack();
 			}
 			else if (!isAttacking)
 			{
 				Vector2 directionToPlayer = (player.GlobalPosition - GlobalPosition).Normalized();
-				Velocity = new Vector2(directionToPlayer.X * Speed, 0);
+				
+				velocity = new Vector2(directionToPlayer.X * Speed, velocity.Y + GetGravity().Y * (float)delta);
 
 				// Dirección del enemy
-				if (Velocity.X > 0)
+				if (velocity.X > 0)
 				{
 					animatedSprite.FlipH = false;
 				}
@@ -69,7 +72,7 @@ public partial class Enemy : CharacterBody2D
 		{
 			if (!isTakingDamage )
 			{
-				Velocity = Vector2.Zero;
+				velocity = Vector2.Zero;
 				animatedSprite.Play("idle");
 			}
 
@@ -81,7 +84,7 @@ public partial class Enemy : CharacterBody2D
 			*/
 			
 		}
-
+		Velocity = velocity;
 		MoveAndSlide();
 	}
 
@@ -125,7 +128,6 @@ public partial class Enemy : CharacterBody2D
 
 	public void TakeDamage(int damage)
 	{
-		if (player == null) return;
 		Health -= damage;
 		GD.Print("Taking damage");
 		isTakingDamage = true;

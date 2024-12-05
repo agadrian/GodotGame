@@ -25,7 +25,7 @@ public partial class MenuTab : PanelContainer
 		Visible = false;
 	}
 
-	public void LoadSceneRequest(PackedScene loadScene)
+	public void LoadSceneRequest(String loadScene)
 	{
 		mainMenu.OnSwapScene(loadScene);
 	}

@@ -25,10 +25,10 @@ public partial class MainMenuManager : Control
 		goBackList.RemoveAt(goBackList.Count - 1);
 	}
 
-	public void OnSwapScene(PackedScene loadScene)
+	public void OnSwapScene(String loadScene)
 	{
-		GetTree().Root.AddChild(loadScene.Instantiate());
-		QueueFree();
+		GetTree().ChangeSceneToFile(loadScene);
+		//QueueFree();
 	}
 
 	private void OnQuitGameBtnPressed()
