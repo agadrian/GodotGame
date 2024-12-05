@@ -13,6 +13,10 @@ public partial class MenuTab : PanelContainer
 		}
 	}
 
+	
+	 /**
+	  * Metodos para implementar submenus dentro del menu principal ** NO IMPLEMENTADO **
+	  */
 	public void OnMenuSwapButtonPressed(int swapIndex)
 	{
 		mainMenu.SwapMenu(swapIndex, GetIndex());

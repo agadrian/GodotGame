@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://gw7tvuebqin"]
+[gd_scene load_steps=17 format=3 uid="uid://gw7tvuebqin"]
 
 [ext_resource type="PackedScene" uid="uid://chg12vace7rqu" path="res://scenes/player.tscn" id="1_7uvoa"]
 [ext_resource type="Script" path="res://scripts/gameScript.gd" id="1_g4ie5"]
 [ext_resource type="Texture2D" uid="uid://8cyxixnjab72" path="res://assets/Dungeon Tile Set.png" id="2_b783c"]
 [ext_resource type="PackedScene" uid="uid://biplckcatxqpv" path="res://scenes/platform.tscn" id="3_kmngf"]
 [ext_resource type="Texture2D" uid="uid://dg34ciptjp5ny" path="res://assets/mapa3/Tiles-and-Some-Props.png" id="3_rsjhc"]
-[ext_resource type="PackedScene" uid="uid://k1tywjmrcjwr" path="res://scenes/kill_zone.tscn" id="4_b22fi"]
 [ext_resource type="PackedScene" uid="uid://gy4oojid02tj" path="res://scenes/enemy.tscn" id="5_7s13m"]
 [ext_resource type="PackedScene" uid="uid://dhly7vxet8qvq" path="res://scenes/pause_menu.tscn" id="7_ylsm6"]
 [ext_resource type="PackedScene" uid="uid://bnau0dwcsvpun" path="res://scenes/platform_mov.tscn" id="8_c2ow2"]
@@ -754,8 +753,6 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_o7fn0")
 sources/1 = SubResource("TileSetAtlasSource_ktu85")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ijdqw"]
-
 [sub_resource type="Animation" id="Animation_sd176"]
 length = 0.001
 tracks/0/type = "value"
@@ -883,12 +880,6 @@ position = Vector2(3736, -565)
 [node name="Platform11" parent="Platforms" instance=ExtResource("3_kmngf")]
 position = Vector2(1679, -171)
 
-[node name="KillZone" parent="." instance=ExtResource("4_b22fi")]
-position = Vector2(2, 45)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
-shape = SubResource("WorldBoundaryShape2D_ijdqw")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_ylsm6")]
@@ -910,7 +901,7 @@ text = "Coins:  0"
 
 [node name="Player" parent="." instance=ExtResource("1_7uvoa")]
 z_index = 5
-position = Vector2(4388, -516)
+position = Vector2(4724, -501)
 floor_constant_speed = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -1309,16 +1300,6 @@ position = Vector2(2285, -196)
 [node name="Coin29" parent="Coins" instance=ExtResource("9_gl8hk")]
 position = Vector2(2556, -157)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 8512.0
-offset_top = -859.0
-offset_right = 8817.0
-offset_bottom = -746.0
-theme_override_colors/font_color = Color(0.481789, 0.481789, 0.481789, 1)
-theme_override_font_sizes/font_size = 18
-text = "You haven´t found all the coins
-Go back for them!!"
-
 [node name="InfoInicial" type="Label" parent="."]
 visibility_layer = 2
 z_index = 5
@@ -1330,3 +1311,13 @@ theme_override_font_sizes/font_size = 14
 text = "Collect all coins to win!
 'F' to attack"
 horizontal_alignment = 1
+
+[node name="InfoFinal" type="Label" parent="."]
+offset_left = 8512.0
+offset_top = -859.0
+offset_right = 8817.0
+offset_bottom = -746.0
+theme_override_colors/font_color = Color(0.481789, 0.481789, 0.481789, 1)
+theme_override_font_sizes/font_size = 18
+text = "You haven´t found all the coins
+Go back for them!!"

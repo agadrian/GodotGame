@@ -1,23 +1,16 @@
 using Godot;
-using System;
-using System.Threading.Tasks;
 
-
-
-// TODO: Concicion de vicotria cuando recolecte todas las monedas
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 120.0f;
+	public float Speed = 120.0f;
 	public const float JumpVelocity = -320.0f;
 	public const int AttackDamage = 15;
-	public int Health = 150;
+	public int Health = 180;
 	
 	// Referncia al sprite del Pj
 	private AnimatedSprite2D _animatedSprite;
-	// Referencia al nodo del enemy
 	private Enemy _enemy;  
-	// Rango de ataque cuerpo a cuerpo
 	private const float AttackRange = 30f;
 	private float AttackCooldown = 0.6f;
 	public bool canAttack = true;
@@ -45,19 +38,13 @@ public partial class Player : CharacterBody2D
 		if (_animationTree != null)
 		{
 			GD.Print("AnimationTree encontrado y referenciado correctamente.");
-			
 			_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-			
-			
 			_animationTree.Active = true;
-			
 		}
 		else
 		{
 			GD.PrintErr("Error: No se encontró el nodo AnimationTree. Revisa la ruta.");
 		}
-		
-		
 	}
 	
 	
@@ -138,7 +125,7 @@ public partial class Player : CharacterBody2D
 		{
 			if (canAttack)
 			{
-				//Godot.GD.Print("ataaque");
+				//Godot.GD.Print("ataque");
 				Attack();
 			}
 		}
@@ -182,14 +169,12 @@ public partial class Player : CharacterBody2D
 		{
 			if (node is Enemy enemy)
 			{
-
 				float distanceToEnemy = GlobalPosition.DistanceTo(enemy.GlobalPosition);
 
 				if (distanceToEnemy <= closestDistance)
 				{
 					closestDistance = distanceToEnemy;
 					closestEnemy = enemy;
-					//_enemy.TakeDamage(AttackDamage);
 					//GD.Print("atack");
 				}
 			}
@@ -207,13 +192,13 @@ public partial class Player : CharacterBody2D
 	
 	private void OnAttackAnimationEnd()
 	{
-		GD.Print("Ataque Cuerpo a Cuerpo Terminado");
+		//GD.Print("Ataque Cuerpo a Cuerpo Terminado");
 		_animationTree.Set("parameters/conditions/attack", false);
 	}
 	
 	private void OnCooldownEnd()
 	{
-		GD.Print("Cooldown terminado, ahora puedes atacar nuevamente.");
+		//GD.Print("Cooldown terminado, ahora puedes atacar nuevamente.");
 		canAttack = true;  
 	}
 
@@ -222,7 +207,7 @@ public partial class Player : CharacterBody2D
 		if (!isTakingDamage)
 		{
 			Health -= damage;
-			GD.Print("Player hurt! Health: " + Health);
+			GD.Print("Player herido! Vida: " + Health);
 			
 			isTakingDamage = true;
 			
@@ -230,17 +215,17 @@ public partial class Player : CharacterBody2D
 
 			// Timer para permitir que el jugador reciba daño nuevamente después de la animación
 			var hurtTimer = new Timer();
-			hurtTimer.WaitTime = 0.5f; // Duración de la animación de daño
+			hurtTimer.WaitTime = 0.5f; 
 			hurtTimer.OneShot = true;
 			hurtTimer.Connect("timeout", new Callable(this, nameof(ResetDamageState)));
 			AddChild(hurtTimer);
 			hurtTimer.Start();
 			
 			
-
 			// Comprobar si el jugador muere
 			if (Health <= 0)
 			{
+				Speed = 0; // Para que no se mueva mientras hace la animacion de muerte
 				Die();
 			}
 		}
@@ -256,15 +241,16 @@ public partial class Player : CharacterBody2D
 	{
 		if (isDead)
 		{
-			GD.Print("Is already dead");
+			//GD.Print("Is already dead");
 			return;
 		}
 		
 		isDead = true;
 		
+		
 		_animationTree.Set("parameters/conditions/dead", true);
 		var deadTimer = new Timer();
-		deadTimer.WaitTime = 1f; // Duración de la animación de daño
+		deadTimer.WaitTime = 1f; 
 		deadTimer.OneShot = true;
 		deadTimer.Connect("timeout", new Callable(this, nameof(OnDeathComplete)));
 		AddChild(deadTimer);
@@ -278,8 +264,6 @@ public partial class Player : CharacterBody2D
 		GD.Print("Player has died!");
 		QueueFree();
 		GetTree().CallDeferred("change_scene_to_file", "res://scenes/GameOver.tscn");
-		GetTree().CallDeferred("current_scece", "res://scenes/GameOver.tscn");
-		//GetTree().Root.ChangeSceneToFile("res://scenes/GameOver.tscn");
 	}
 	
 	

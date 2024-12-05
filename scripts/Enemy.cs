@@ -1,13 +1,14 @@
 using Godot;
-using System;
 
 public partial class Enemy : CharacterBody2D
 {
 	
-	public const float Speed = 80f;
+	public const float Speed = 50f;
 	public const float DetectionRange = 200f;
 	private const float AttackRange = 20f;
+	private const int Damage = 20;
 	public int Health = 90;
+	public const float Gravity = 500f; 
 	
 	// Refernciar al jugador principal
 	private Player player;
@@ -37,25 +38,29 @@ public partial class Enemy : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
 		
 		if (player == null || player.IsQueuedForDeletion()) return;
+
+		if (!IsOnFloor())
+		{
+			Velocity = new Vector2(Velocity.X, Velocity.Y + Gravity * (float)delta);
+		}
 
 		if (player != null && IsPlayerInRange() && !isTakingDamage)
 		{
 			if (GetDistanceToPlayer() < AttackRange && !isAttackOnCooldown && !isAttacking && !isTakingDamage)
 			{
-				velocity = Vector2.Zero;
+				Velocity = Vector2.Zero;
 				Attack();
 			}
 			else if (!isAttacking)
 			{
 				Vector2 directionToPlayer = (player.GlobalPosition - GlobalPosition).Normalized();
 				
-				velocity = new Vector2(directionToPlayer.X * Speed, velocity.Y + GetGravity().Y * (float)delta);
+				Velocity = new Vector2(directionToPlayer.X * Speed, Velocity.Y);
 
 				// Dirección del enemy
-				if (velocity.X > 0)
+				if (Velocity.X > 0)
 				{
 					animatedSprite.FlipH = false;
 				}
@@ -72,7 +77,7 @@ public partial class Enemy : CharacterBody2D
 		{
 			if (!isTakingDamage )
 			{
-				velocity = Vector2.Zero;
+				Velocity = Vector2.Zero;
 				animatedSprite.Play("idle");
 			}
 
@@ -84,7 +89,7 @@ public partial class Enemy : CharacterBody2D
 			*/
 			
 		}
-		Velocity = velocity;
+	
 		MoveAndSlide();
 	}
 
@@ -96,7 +101,6 @@ public partial class Enemy : CharacterBody2D
 			
 		isAttacking = true;
 		animatedSprite.Play("attack");
-		GD.Print("antes de coldown");
 		
 		isAttackOnCooldown = true;
 		
@@ -110,7 +114,7 @@ public partial class Enemy : CharacterBody2D
 		
 		GD.Print("despues de coldown");
 		player.canAttack = false;
-		player.TakeDamage(20);
+		player.TakeDamage(Damage);
 	}
 	
 	private void OnAttackCooldownComplete()
@@ -123,15 +127,12 @@ public partial class Enemy : CharacterBody2D
 	
 	
 	
-	
-
 
 	public void TakeDamage(int damage)
 	{
 		Health -= damage;
-		GD.Print("Taking damage");
 		isTakingDamage = true;
-
+		GD.Print("Enemy Taking damage");
 		
 		animatedSprite.Play("hurt");
 		
@@ -153,7 +154,6 @@ public partial class Enemy : CharacterBody2D
 
 	private void ResetHurtState()
 	{
-		Godot.GD.Print("takin to false");  
 		isTakingDamage = false;
 	}
 	
