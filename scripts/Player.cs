@@ -256,7 +256,7 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			GD.PrintErr("ERROR - No se encontró el nodo Game para actualizar el puntaje.");
+			GD.Print("ERROR - No se encontró el nodo Game para actualizar el puntaje.");
 		}
 		
 		
