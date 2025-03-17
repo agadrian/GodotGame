@@ -6,7 +6,7 @@ public partial class Enemy : CharacterBody2D
 	public const float Speed = 50f;
 	public const float DetectionRange = 200f;
 	private const float AttackRange = 20f;
-	private const int Damage = 20;
+	private const int Damage = 10;
 	public int Health = 90;
 	public const float Gravity = 500f; 
 	

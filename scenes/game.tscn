@@ -899,9 +899,18 @@ theme_override_colors/font_shadow_color = Color(0.0765362, 0.330663, 0.676925, 1
 theme_override_font_sizes/font_size = 25
 text = "Coins:  0"
 
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_left = 48.0
+offset_top = 60.0
+offset_right = 148.0
+offset_bottom = 95.0
+theme_override_colors/font_shadow_color = Color(0.0765362, 0.330663, 0.676925, 1)
+theme_override_font_sizes/font_size = 25
+text = "Previus Score: "
+
 [node name="Player" parent="." instance=ExtResource("1_7uvoa")]
 z_index = 5
-position = Vector2(4724, -501)
+position = Vector2(-559, -220)
 floor_constant_speed = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -1169,11 +1178,8 @@ position = Vector2(1488, -133)
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Enemy" parent="Enemies" groups=["enemies"] instance=ExtResource("5_7s13m")]
-position = Vector2(-154, 0)
-
 [node name="Enemy2" parent="Enemies" groups=["enemies"] instance=ExtResource("5_7s13m")]
-position = Vector2(798, -129)
+position = Vector2(706, -133)
 
 [node name="Enemy3" parent="Enemies" groups=["enemies"] instance=ExtResource("5_7s13m")]
 position = Vector2(1403, -239)
@@ -1198,6 +1204,9 @@ position = Vector2(6361, -528)
 
 [node name="Enemy10" parent="Enemies" groups=["enemies"] instance=ExtResource("5_7s13m")]
 position = Vector2(7570, -688)
+
+[node name="Enemy" parent="Enemies" groups=["enemies"] instance=ExtResource("5_7s13m")]
+position = Vector2(-82, -2)
 
 [node name="PlatformMov" parent="." instance=ExtResource("8_c2ow2")]
 position = Vector2(2099, -142)
@@ -1321,3 +1330,11 @@ theme_override_colors/font_color = Color(0.481789, 0.481789, 0.481789, 1)
 theme_override_font_sizes/font_size = 18
 text = "You haven´t found all the coins
 Go back for them!!"
+
+[node name="HTTPRequestPut" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestGet" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestGetAll" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestPost" type="HTTPRequest" parent="."]

@@ -5,8 +5,8 @@ public partial class Player : CharacterBody2D
 {
 	public float Speed = 120.0f;
 	public const float JumpVelocity = -320.0f;
-	public const int AttackDamage = 15;
-	public int Health = 180;
+	public const int AttackDamage = 30;
+	public int Health = 300;
 	
 	// Referncia al sprite del Pj
 	private AnimatedSprite2D _animatedSprite;
@@ -239,6 +239,7 @@ public partial class Player : CharacterBody2D
 	
 	private void Die()
 	{
+		
 		if (isDead)
 		{
 			//GD.Print("Is already dead");
@@ -246,6 +247,17 @@ public partial class Player : CharacterBody2D
 		}
 		
 		isDead = true;
+		
+		// Obtener el nodo padre (Game) y llamar a send_score_to_api()
+		Node2D gameManager = GetNode<Node2D>("..");
+		if (gameManager != null)
+		{
+			gameManager.Call("send_score_to_api");
+		}
+		else
+		{
+			GD.PrintErr("ERROR - No se encontró el nodo Game para actualizar el puntaje.");
+		}
 		
 		
 		_animationTree.Set("parameters/conditions/dead", true);
